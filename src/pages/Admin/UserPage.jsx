@@ -11,17 +11,20 @@ const UserPage = () => {
       title: "Avatar",
       dataIndex: "avatar",
       key: "avatar",
-      render: (imgSrc) => (
-        <img
-          src={imgSrc}
-          alt="Avatar"
-          style={{
-            width: "50px",
-            height: "50px",
-            borderRadius: "50%",
-          }}
-        />
-      ),
+  render: (imgSrc) =>
+  imgSrc ? (
+    <img
+      src={imgSrc}
+      alt="Avatar"
+      style={{
+        width: "50px",
+        height: "50px",
+        borderRadius: "50%",
+      }}
+    />
+  ) : (
+    <span>Avatar Yok</span> // Yedek yazı veya default avatar koyabilirsin
+  ),
     },
     {
       title: "Username",
