@@ -15,7 +15,6 @@ const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const addToCart = (cartItem) => {
-    // setCartItems([...cartItems, cartItem]); 1. yol
     setCartItems((prevCart) => [
       ...prevCart,
       {
@@ -27,9 +26,8 @@ const CartProvider = ({ children }) => {
 
   const removeFromCart = (itemId) => {
     const filteredCartItems = cartItems.filter((cartItem) => {
-      return cartItem._id !== itemId;
+      return cartItem._id !== itemId && cartItem.id !== itemId;
     });
-
     setCartItems(filteredCartItems);
   };
 
@@ -38,10 +36,11 @@ const CartProvider = ({ children }) => {
       removeFromCart(itemId);
       return;
     }
-
     setCartItems((prevCart) =>
       prevCart.map((item) =>
-        item._id === itemId ? { ...item, quantity: newQuantity } : item
+        item._id === itemId || item.id === itemId
+          ? { ...item, quantity: newQuantity }
+          : item
       )
     );
   };

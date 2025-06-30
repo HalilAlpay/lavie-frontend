@@ -104,7 +104,10 @@ const Products = () => {
         <div className="product-wrapper product-carousel">
           <Slider {...sliderSettings}>
             {products.map((product) => (
-              <ProductItem productItem={product} key={product._id} />
+              <ProductItem
+                productItem={product}
+                key={product._id || product.id}
+              />
             ))}
           </Slider>
         </div>

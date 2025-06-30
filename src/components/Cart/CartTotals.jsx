@@ -15,7 +15,6 @@ const CartTotals = () => {
 
   const cartItemTotals = cartItems.map((item) => {
     const itemTotal = item.price * (item.quantity || 1);
-
     return itemTotal;
   });
 
@@ -34,36 +33,28 @@ const CartTotals = () => {
     if (!user) {
       return message.info("Ödeme yapabilmek için giriş yapmalısınız!");
     }
-
     if (!apiUrl) {
       return message.error("API URL tanımlı değil!");
     }
-
     const body = {
       products: cartItems,
       user: user,
       cargoFee: fastCargoChecked ? cargoFee : 0,
     };
-
     try {
       const stripe = await loadStripe(stripePublicKey);
-
       const res = await fetch(`${apiUrl}/api/payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-
       if (!res.ok) {
         return message.error("Ödeme işlemi başarısız oldu.");
       }
-
       const session = await res.json();
-
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,
       });
-
       if (result.error) {
         throw new Error(result.error.message);
       }
