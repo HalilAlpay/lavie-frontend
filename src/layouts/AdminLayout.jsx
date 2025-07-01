@@ -15,6 +15,8 @@ const { Sider, Header, Content } = Layout;
 
 const getUserRole = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log("User from localStorage:", user); // Debug log
+  console.log("User role:", user ? user.role : "No user"); // Debug log
   return user ? user.role : null;
 };
 
@@ -167,6 +169,7 @@ const AdminLayout = ({ children }) => {
   };
 
   if (userRole === "admin") {
+    console.log("Admin paneli gösteriliyor"); // Debug log
     return (
       <div className="admin-layout">
         <Layout
@@ -213,6 +216,10 @@ const AdminLayout = ({ children }) => {
       </div>
     );
   } else {
+    console.log(
+      "Admin değil, ana sayfaya yönlendiriliyor. UserRole:",
+      userRole
+    ); // Debug log
     return (window.location.href = "/");
   }
 };
